@@ -1,0 +1,89 @@
+<svg width="240" height="60" viewBox="0 0 240 60" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <!-- Gradiente principal mais sutil -->
+    <linearGradient id="mainGradient" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" style="stop-color:#3B82F6"/>
+      <stop offset="100%" style="stop-color:#1E40AF"/>
+    </linearGradient>
+    
+    <!-- Gradiente do ícone -->
+    <linearGradient id="iconGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#60A5FA"/>
+      <stop offset="100%" style="stop-color:#3B82F6"/>
+    </linearGradient>
+    
+    <!-- Sombra sutil -->
+    <filter id="shadow">
+      <feDropShadow dx="1" dy="2" stdDeviation="2" flood-opacity="0.1"/>
+    </filter>
+  </defs>
+  
+  <!-- Ícone moderno de link -->
+  <g transform="translate(10, 15)">
+    <!-- Container circular do ícone -->
+    <rect x="0" y="0" width="30" height="30" rx="8" fill="url(#iconGrad)" filter="url(#shadow)"/>
+    
+    <!-- Ícone de corrente simplificado -->
+    <g transform="translate(15, 15)" stroke="white" stroke-width="2" fill="none" stroke-linecap="round">
+      <!-- Primeiro elo -->
+      <path d="M-6,-4 Q-8,-4 -8,-2 Q-8,0 -6,0 L-2,0">
+        <animate attributeName="stroke-dasharray" values="0,20;10,10;0,20" dur="3s" repeatCount="indefinite"/>
+      </path>
+      
+      <!-- Segundo elo -->
+      <path d="M2,0 L6,0 Q8,0 8,-2 Q8,-4 6,-4">
+        <animate attributeName="stroke-dasharray" values="0,20;10,10;0,20" dur="3s" begin="0.5s" repeatCount="indefinite"/>
+      </path>
+      
+      <!-- Linha de conexão que se transforma -->
+      <line x1="-2" y1="0" x2="2" y2="0" stroke-width="1.5">
+        <animate attributeName="stroke-dasharray" values="4,0;2,2;4,0" dur="2s" repeatCount="indefinite"/>
+        <animate attributeName="opacity" values="1;0.3;1" dur="2s" repeatCount="indefinite"/>
+      </line>
+    </g>
+  </g>
+  
+  <!-- Texto principal -->
+  <g transform="translate(50, 35)">
+    <text font-family="system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" 
+          font-size="22" 
+          font-weight="700" 
+          fill="url(#mainGradient)"
+          filter="url(#shadow)">
+      <tspan>Encurta</tspan><tspan fill="#64748B" font-weight="500">Web</tspan>
+    </text>
+  </g>
+  
+  <!-- Subtítulo discreto -->
+  <text x="52" y="50" 
+        font-family="system-ui, -apple-system, sans-serif" 
+        font-size="9" 
+        font-weight="500" 
+        fill="#94A3B8" 
+        opacity="0.8">
+    URL Shortener
+  </text>
+  
+  <!-- Decoração minimalista -->
+  <circle cx="220" cy="20" r="1.5" fill="#E2E8F0" opacity="0.6">
+    <animate attributeName="opacity" values="0.6;1;0.6" dur="4s" repeatCount="indefinite"/>
+  </circle>
+  <circle cx="225" cy="40" r="1" fill="#CBD5E1" opacity="0.4">
+    <animate attributeName="opacity" values="0.4;0.8;0.4" dur="4s" begin="2s" repeatCount="indefinite"/>
+  </circle>
+  
+  <style>
+    <![CDATA[
+      svg {
+        cursor: pointer;
+        transition: all 0.2s ease;
+      }
+      svg:hover {
+        transform: translateY(-1px);
+      }
+      svg:hover rect {
+        fill: url(#mainGradient);
+      }
+    ]]>
+  </style>
+</svg>
