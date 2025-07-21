@@ -7,7 +7,7 @@ const firebaseConfig = {
   apiKey: 'AIzaSyD62B-w91pRTffvTMcEE98JX4axna2-teM',
   authDomain: 'encurtaweb.firebaseapp.com',
   projectId: 'encurtaweb',
-  storageBucket: 'encurtaweb.firebasestorage.app',
+  storageBucket: 'encurtaweb.appspot.com',
   messagingSenderId: '796602703766',
   appId: '1:796602703766:web:bda13ff8942152019f07b7'
 }
