@@ -16,10 +16,10 @@
     <button
       id="theme-toggle"
       class="btn btn-light position-absolute top-0 end-0 m-3"
-      aria-label="Alternar tema"
+      aria-label="Alternar entre modo claro e escuro"
       style="z-index: 1050"
     >
-      <span id="theme-icon" class="fs-4">🌙</span>
+      <span id="theme-icon" class="fs-4" aria-hidden="true">🌙</span>
     </button>
     <div class="container">
       <div class="row justify-content-center">
@@ -37,9 +37,14 @@
                 id="url-input"
                 placeholder="https://exemplo.com"
                 required
+                aria-label="Digite a URL que deseja encurtar"
               />
             </div>
-            <button type="submit" class="btn btn-primary w-100">
+            <button
+              type="submit"
+              class="btn btn-primary w-100"
+              aria-label="Encurtar URL"
+            >
               Encurtar
             </button>
           </form>
@@ -52,11 +57,13 @@
                   id="short-url"
                   class="form-control"
                   readonly
+                  aria-label="URL encurtada gerada"
                 />
                 <button
                   class="btn btn-outline-secondary"
                   type="button"
                   id="copy-btn"
+                  aria-label="Copiar URL encurtada"
                 >
                   Copiar
                 </button>
@@ -145,5 +152,33 @@
         })
       })
     </script>
+    <style>
+      /* Foco visível para botões e campos */
+      button:focus,
+      input:focus,
+      [tabindex]:focus {
+        outline: 2px solid #0d6efd !important;
+        outline-offset: 2px;
+        box-shadow: 0 0 0 0.2rem rgba(13, 110, 253, 0.25);
+      }
+      /* Contraste para dark mode */
+      body.dark-mode .btn-light {
+        background: #222 !important;
+        color: #fff !important;
+        border-color: #444 !important;
+      }
+      body.dark-mode .form-control {
+        background: #222 !important;
+        color: #fff !important;
+        border-color: #444 !important;
+      }
+      body.dark-mode .btn-outline-secondary {
+        color: #fff !important;
+        border-color: #bbb !important;
+      }
+      body.dark-mode .btn-outline-secondary:focus {
+        outline: 2px solid #fff !important;
+      }
+    </style>
   </body>
 </html>
