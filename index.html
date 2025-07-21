@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Encurtador de URL</title>
+    <!-- Bootstrap 5 CDN -->
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="assets/css/main.css" />
+  </head>
+  <body class="bg-light d-flex align-items-center min-vh-100">
+    <!-- Botão de toggle de dark mode -->
+    <button
+      id="theme-toggle"
+      class="btn btn-light position-absolute top-0 end-0 m-3"
+      aria-label="Alternar tema"
+      style="z-index: 1050"
+    >
+      <span id="theme-icon" class="fs-4">🌙</span>
+    </button>
+    <div class="container">
+      <div class="row justify-content-center">
+        <div class="col-12 col-md-8 col-lg-6">
+          <div class="text-center mb-4">
+            <h1 class="fw-bold">Encurtador de URL</h1>
+            <p class="text-muted">Cole sua URL abaixo para encurtar</p>
+          </div>
+          <form id="shorten-form" class="card p-4 shadow-sm mb-3">
+            <div class="mb-3">
+              <label for="url-input" class="form-label">URL</label>
+              <input
+                type="url"
+                class="form-control"
+                id="url-input"
+                placeholder="https://exemplo.com"
+                required
+              />
+            </div>
+            <button type="submit" class="btn btn-primary w-100">
+              Encurtar
+            </button>
+          </form>
+          <div id="result-card" class="card p-4 shadow-sm d-none">
+            <div class="mb-3">
+              <label class="form-label">Sua URL encurtada:</label>
+              <div class="input-group">
+                <input
+                  type="text"
+                  id="short-url"
+                  class="form-control"
+                  readonly
+                />
+                <button
+                  class="btn btn-outline-secondary"
+                  type="button"
+                  id="copy-btn"
+                >
+                  Copiar
+                </button>
+              </div>
+            </div>
+            <div id="copy-feedback" class="text-success small d-none">
+              Copiado!
+            </div>
+          </div>
+          <div
+            id="error-message"
+            class="alert alert-danger mt-3 d-none"
+            role="alert"
+          ></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Bootstrap JS Bundle -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    <!-- Firebase e módulos -->
+    <script type="module">
+      // Dark mode toggle
+      const themeToggle = document.getElementById('theme-toggle')
+      const themeIcon = document.getElementById('theme-icon')
+      const body = document.body
+
+      function setTheme(dark) {
+        if (dark) {
+          body.classList.add('dark-mode')
+          themeIcon.textContent = '☀️'
+          localStorage.setItem('theme', 'dark')
+        } else {
+          body.classList.remove('dark-mode')
+          themeIcon.textContent = '🌙'
+          localStorage.setItem('theme', 'light')
+        }
+      }
+
+      // Inicializa tema com base no localStorage
+      const savedTheme = localStorage.getItem('theme')
+      setTheme(savedTheme === 'dark')
+
+      themeToggle.addEventListener('click', () => {
+        const isDark = !body.classList.contains('dark-mode')
+        setTheme(isDark)
+      })
+
+      // --- Código do encurtador ---
+      import { shortenURL } from './js/modules/urlShortener.js'
+      import { isValidURL } from './js/modules/validateURL.js'
+
+      const form = document.getElementById('shorten-form')
+      const urlInput = document.getElementById('url-input')
+      const resultCard = document.getElementById('result-card')
+      const shortUrlInput = document.getElementById('short-url')
+      const copyBtn = document.getElementById('copy-btn')
+      const copyFeedback = document.getElementById('copy-feedback')
+      const errorMessage = document.getElementById('error-message')
+
+      form.addEventListener('submit', async e => {
+        e.preventDefault()
+        errorMessage.classList.add('d-none')
+        resultCard.classList.add('d-none')
+        copyFeedback.classList.add('d-none')
+        const url = urlInput.value.trim()
+        if (!isValidURL(url)) {
+          errorMessage.textContent = 'Por favor, insira uma URL válida.'
+          errorMessage.classList.remove('d-none')
+          return
+        }
+        try {
+          const shortUrl = await shortenURL(url)
+          shortUrlInput.value = shortUrl
+          resultCard.classList.remove('d-none')
+        } catch (err) {
+          errorMessage.textContent = 'Erro ao encurtar a URL. Tente novamente.'
+          errorMessage.classList.remove('d-none')
+        }
+      })
+
+      copyBtn.addEventListener('click', () => {
+        navigator.clipboard.writeText(shortUrlInput.value).then(() => {
+          copyFeedback.classList.remove('d-none')
+          setTimeout(() => copyFeedback.classList.add('d-none'), 1500)
+        })
+      })
+    </script>
+  </body>
+</html>
