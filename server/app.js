@@ -1,3 +1,18 @@
+const mongoose = require('mongoose')
+require('dotenv').config()
+
+mongoose
+  .connect(process.env.MONGODB_URI, {
+    useNewUrlParser: true,
+    useUnifiedTopology: true
+  })
+  .then(() => {
+    console.log('MongoDB conectado')
+  })
+  .catch(err => {
+    console.error('Erro ao conectar no MongoDB:', err)
+  })
+
 var express = require('express')
 var path = require('path')
 var cookieParser = require('cookie-parser')
