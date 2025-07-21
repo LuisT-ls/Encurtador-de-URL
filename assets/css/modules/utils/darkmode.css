@@ -1,0 +1,40 @@
+/* Dark mode: fundo escuro e placeholder claro */
+body.dark-mode {
+  background: #181a1b !important;
+  color: #f1f1f1;
+}
+
+body.dark-mode .card,
+body.dark-mode .form-control,
+body.dark-mode .input-group,
+body.dark-mode .modal-content {
+  background: #23272b !important;
+  color: #f1f1f1;
+  border-color: #333 !important;
+}
+
+body.dark-mode .form-control:focus {
+  background: #23272b !important;
+  color: #fff;
+}
+
+body.dark-mode .btn-primary {
+  background: #2563eb;
+  border-color: #2563eb;
+}
+
+/* Placeholder para dark mode */
+body.dark-mode ::placeholder {
+  color: #b0b3b8 !important;
+  opacity: 1;
+}
+
+/* Placeholder para light mode (opcional para garantir contraste) */
+body:not(.dark-mode) ::placeholder {
+  color: #6c757d;
+  opacity: 1;
+}
+
+body.dark-mode .text-muted {
+  color: #b0b3b8 !important;
+}
